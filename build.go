@@ -1,5 +1,10 @@
 package main
 
+import (
+	"fmt"
+	"os"
+)
+
 // Build Locations
 type BuildLocation string
 
@@ -34,18 +39,30 @@ var projects = map[string]BuildType{
 }
 
 // Build Wrapper
-func build() {
-
+func build(name string, protype BuildType) {
+	// Run build commands
 }
 
 // Clean Wrapper
-func clean() {
-
+func clean(name string, protype BuildType) {
+	// Remove build files
 }
 
 // Main Function
 func main() {
 	for program, project := range projects {
-
+		if len(os.Args) > 1 {
+			switch os.Args[1] {
+			case "build":
+				build(program, project)
+			case "clean":
+				clean(program, project)
+			default:
+				println(fmt.Sprintf("Unknown command: %s", os.Args[1]))
+				os.Exit(1)
+			}
+		} else {
+			build(program, project)
+		}
 	}
 }
