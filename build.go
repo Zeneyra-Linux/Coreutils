@@ -67,11 +67,21 @@ func build_init() {
 			unsuccessful++
 			println(err.Error())
 		} else {
+			programfile := program
+			if runtime.GOOS == "windows" {
+				programfile += ".exe"
+			}
 			if project == ZigType {
-				os.Rename(fmt.Sprintf(string(ZigLocation), program), filepath.Join(builddir, program))
+				os.Rename(
+					fmt.Sprintf(string(ZigLocation), programfile),
+					filepath.Join(builddir, programfile),
+				)
 			}
 			if project == RustType {
-				os.Rename(fmt.Sprintf(string(RustLocation), program), filepath.Join(builddir, program))
+				os.Rename(
+					fmt.Sprintf(string(RustLocation), programfile),
+					filepath.Join(builddir, programfile),
+				)
 			}
 		}
 	}
